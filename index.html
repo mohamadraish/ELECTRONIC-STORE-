@@ -1,1 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food & Electronics Hub - User Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-utensils"></i> <i class="fas fa-microchip"></i>
+                    <span>Food & ElectroHub</span>
+                </div>
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Search food or components...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <a href="admin.html" class="admin-link btn btn-primary">Admin Login</a>
+            </div>
+        </div>
+    </header>
 
+    <div class="nav-container">
+        <div class="container">
+            <ul class="tabs">
+                <li class="tab active" data-tab="home">Home</li>
+                <li class="tab" data-tab="search">Search</li>
+                <li class="tab" data-tab="orders">Orders</li>
+                <li class="tab" data-tab="profile">Profile</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tab-content active" id="home-content">
+            <h2 class="section-title"><i class="fas fa-home"></i> Featured Items</h2>
+            <div class="products-grid" id="products-container">
+                <!-- Items will be loaded here -->
+            </div>
+        </div>
+
+        <div class="tab-content" id="search-content">
+            <h2 class="section-title"><i class="fas fa-search"></i> Find Items</h2>
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="search-input-main" placeholder="Search for food or components...">
+                    <button><i class="fas fa-search"></i> Search</button>
+                </div>
+            </div>
+            <div class="products-grid" id="search-results">
+                <!-- Search results will be loaded here -->
+            </div>
+        </div>
+
+        <div class="tab-content" id="orders-content">
+            <h2 class="section-title"><i class="fas fa-shopping-bag"></i> Your Orders</h2>
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Item</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#ORD-001</td>
+                        <td>Pizza</td>
+                        <td>Jul 5, 2025</td>
+                        <td><span class="status status-pending"><i class="fas fa-circle-notch"></i> Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>#ORD-002</td>
+                        <td>Arduino Uno R3</td>
+                        <td>Jul 2, 2025</td>
+                        <td><span class="status status-complete"><i class="fas fa-check-circle"></i> Complete</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-content" id="profile-content">
+            <h2 class="section-title"><i class="fas fa-user"></i> Your Profile</h2>
+            <div class="profile-card">
+                <div class="profile-detail">
+                    <div class="detail-label">Name:</div>
+                    <div class="detail-value">Raj Sharma</div>
+                </div>
+                <div class="profile-detail">
+                    <div class="detail-label">Email:</div>
+                    <div class="detail-value">raj.sharma@example.com</div>
+                </div>
+                <div class="profile-detail">
+                    <div class="detail-label">Mobile:</div>
+                    <div class="detail-value">+91 98765 43210</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active" data-tab="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" data-tab="search">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </div>
+        <div class="nav-item" data-tab="orders">
+            <i class="fas fa-shopping-bag"></i>
+            <span>Orders</span>
+        </div>
+        <div class="nav-item" data-tab="profile">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
