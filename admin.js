@@ -1,3 +1,6 @@
+// Admin credentials
+const adminCredentials = { email: "admin@food.com", password: "admin123" };
+
 // Load data from localStorage or initialize with default data
 let items = JSON.parse(localStorage.getItem('items')) || [
     { id: 1, type: "food", name: "Pizza", price: 150, image: "https://via.placeholder.com/150", status: "available" },
@@ -13,11 +16,10 @@ let users = JSON.parse(localStorage.getItem('users')) || [
 ];
 
 let orders = JSON.parse(localStorage.getItem('orders')) || [
-    { id: "ORD-001", user: "Raj Sharma", item: "Pizza", date: "Jul 5, 2025", status: "pending" },
-    { id: "ORD-002", user: "Priya Patel", item: "Arduino Uno R3", date: "Jul 2, 2025", status: "completed" }
+    { id: "ORD-001", user: "Raj Sharma", item: "Pizza", date: "Jul 5, 2025", status: "pending" }
 ];
 
-// Save data to localStorage whenever it changes
+// Save data to localStorage
 function saveData() {
     localStorage.setItem('items', JSON.stringify(items));
     localStorage.setItem('users', JSON.stringify(users));
@@ -113,27 +115,38 @@ function completeOrder(orderId) {
     renderOrders();
 }
 
-// Add new item
+// Add new item with image upload
 function addItem() {
     const type = document.getElementById('item-type').value;
     const name = document.getElementById('item-name').value;
     const price = document.getElementById('item-price').value;
-    const image = document.getElementById('item-image').value;
-    if (name && price && image) {
-        const newItem = {
-            id: items.length + 1,
-            type: type,
-            name: name,
-            price: parseInt(price),
-            image: image,
-            status: type === 'food' ? 'available' : 'in-stock'
+    const imageInput = document.getElementById('item-image');
+
+    if (name && price && imageInput.files.length > 0) {
+        const file = imageInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const imageDataUrl = e.target.result;
+            const newItem = {
+                id: items.length + 1,
+                type: type,
+                name: name,
+                price: parseInt(price),
+                image: imageDataUrl,
+                status: type === 'food' ? 'available' : 'in-stock'
+            };
+            items.push(newItem);
+            alert('Item added successfully!');
+            document.getElementById('item-name').value = '';
+            document.getElementById('item-price').value = '';
+            document.getElementById('item-image').value = '';
+            saveData();
         };
-        items.push(newItem);
-        alert('Item added successfully!');
-        document.getElementById('item-name').value = '';
-        document.getElementById('item-price').value = '';
-        document.getElementById('item-image').value = '';
-        saveData();
+
+        reader.readAsDataURL(file);
+    } else {
+        alert('Please fill all fields and upload an image!');
     }
 }
 
