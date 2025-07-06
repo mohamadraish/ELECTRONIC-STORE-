@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +6,7 @@
     <title>Food & Electronics Hub - Admin Panel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="admin-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="admin-container">
@@ -22,13 +23,13 @@
             <button class="login-btn" id="admin-login-btn">Login</button>
             <div class="login-error" id="login-error">Invalid email or password</div>
         </div>
-        
+
         <div class="admin-panel" id="admin-panel" style="display: none;">
             <div class="admin-header">
                 <h2><i class="fas fa-cogs"></i> Admin Dashboard</h2>
                 <button class="close-admin" id="close-admin"><i class="fas fa-times"></i></button>
             </div>
-            
+
             <div class="admin-tabs-nav">
                 <ul class="tabs">
                     <li class="tab active" data-tab="admin-users">Users</li>
@@ -36,7 +37,7 @@
                     <li class="tab" data-tab="admin-add">Add Item</li>
                 </ul>
             </div>
-            
+
             <div class="admin-content">
                 <div class="tab-content active" id="admin-users-content">
                     <div class="container">
@@ -52,13 +53,11 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="users-table">
-                                <!-- Users will be loaded here -->
-                            </tbody>
+                            <tbody id="users-table"></tbody>
                         </table>
                     </div>
                 </div>
-                
+
                 <div class="tab-content" id="admin-orders-content">
                     <div class="container">
                         <h2 class="section-title"><i class="fas fa-shopping-bag"></i> All Orders</h2>
@@ -73,13 +72,11 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody id="orders-table">
-                                <!-- Orders will be loaded here -->
-                            </tbody>
+                            <tbody id="orders-table"></tbody>
                         </table>
                     </div>
                 </div>
-                
+
                 <div class="tab-content" id="admin-add-content">
                     <div class="container">
                         <h2 class="section-title"><i class="fas fa-plus-circle"></i> Add New Item</h2>
@@ -100,8 +97,8 @@
                                 <input type="number" id="item-price" placeholder="Enter price">
                             </div>
                             <div class="form-group">
-                                <label for="item-image">Image URL</label>
-                                <input type="text" id="item-image" placeholder="Enter image URL">
+                                <label for="item-image">Upload Image</label>
+                                <input type="file" id="item-image" accept="image/*">
                             </div>
                             <button class="btn btn-primary" onclick="addItem()">Add Item</button>
                         </div>
@@ -112,5 +109,3 @@
     </div>
 
     <script src="admin.js"></script>
-</body>
-</html>
