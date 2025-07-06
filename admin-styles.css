@@ -1,1 +1,112 @@
+.admin-container {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    transition: right 0.4s ease;
+    z-index: 10000;
+    overflow-y: auto;
+    padding-bottom: 80px;
+}
 
+.admin-container.active {
+    right: 0;
+}
+
+.login-panel {
+    padding: 30px;
+}
+
+.login-panel h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--dark);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.login-error {
+    color: var(--danger);
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.admin-header {
+    background: var(--dark);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-admin {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.admin-tabs-nav {
+    padding: 15px;
+}
+
+.admin-content {
+    padding: 20px;
+}
+
+.add-item-form {
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        width: 100%;
+        right: -100%;
+    }
+}
