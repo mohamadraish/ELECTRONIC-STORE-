@@ -1,5 +1,7 @@
 // Load data from localStorage or initialize with default data
 let items = JSON.parse(localStorage.getItem('items')) || [
+// Load data from localStorage or initialize with default data
+let items = JSON.parse(localStorage.getItem('items')) || [
     { id: 1, type: "food", name: "Pizza", price: 150, image: "https://via.placeholder.com/150", status: "available" },
     { id: 2, type: "food", name: "Burger", price: 100, image: "https://via.placeholder.com/150", status: "available" },
     { id: 3, type: "food", name: "Pasta", price: 120, image: "https://via.placeholder.com/150", status: "out-of-stock" },
@@ -13,15 +15,17 @@ let users = JSON.parse(localStorage.getItem('users')) || [
 ];
 
 let orders = JSON.parse(localStorage.getItem('orders')) || [
-    { id: "ORD-001", user: "Raj Sharma", item: "Pizza", date: "Jul 5, 2025", status: "pending" },
-    { id: "ORD-002", user: "Priya Patel", item: "Arduino Uno R3", date: "Jul 2, 2025", status: "completed" }
+    { id: "ORD-001", user: "Raj Sharma", item: "Pizza", date: "Jul 5, 2025", status: "pending" }
 ];
 
-// Save data to localStorage whenever it changes
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Save data to localStorage
 function saveData() {
     localStorage.setItem('items', JSON.stringify(items));
     localStorage.setItem('users', JSON.stringify(users));
     localStorage.setItem('orders', JSON.stringify(orders));
+    localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 // Render items
@@ -41,7 +45,7 @@ function renderItems(items, containerId) {
                 <div class="stock-status ${item.status === 'available' || item.status === 'in-stock' ? 'in-stock' : 'out-of-stock'}">
                     ${item.status === 'available' || item.status === 'in-stock' ? 'In Stock' : 'Out of Stock'}
                 </div>
-                <button class="btn ${item.status === 'available' || item.status === 'in-stock' ? 'btn-primary' : 'btn-disabled'}">
+                <button class="btn ${item.status === 'available' || item.status === 'in-stock' ? 'btn-primary' : 'btn-disabled'}" onclick="addToCart(${item.id})">
                     ${item.status === 'available' || item.status === 'in-stock' ? 'Add to Cart' : 'Notify Me'}
                 </button>
             </div>
@@ -68,6 +72,7 @@ document.querySelectorAll('.tab, .nav-item').forEach(item => {
         document.getElementById(`${tabName}-content`).classList.add('active');
 
         if (tabName === 'home') renderItems(items, 'products-container');
+        else if (tabName === 'cart') updateCart();
     });
 });
 
@@ -84,5 +89,52 @@ document.querySelectorAll('#search-input, #search-input-main').forEach(input => 
     });
 });
 
+// Cart functionality
+function addToCart(itemId) {
+    const item = items.find(i => i.id === itemId);
+    if (item && (item.status === 'available' || item.status === 'in-stock')) {
+        cart.push(item);
+        saveData();
+        updateCart();
+        alert(`${item.name} added to cart!`);
+    }
+}
+
+function updateCart() {
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    cartItems.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ₹${item.price}`;
+        cartItems.appendChild(li);
+        total += item.price;
+    });
+    cartTotal.textContent = total;
+    saveData();
+}
+
+function checkout() {
+    if (cart.length > 0) {
+        const orderId = `ORD-${Date.now()}`;
+        const order = {
+            id: orderId,
+            user: "Raj Sharma", // Replace with dynamic user later
+            item: cart.map(item => item.name).join(", "),
+            date: new Date().toLocaleDateString(),
+            status: "pending"
+        };
+        orders.push(order);
+        cart = [];
+        saveData();
+        updateCart();
+        alert(`Order #${orderId} placed successfully! Total: ₹${document.getElementById('cart-total').textContent}`);
+    } else {
+        alert('Cart is empty!');
+    }
+}
+
 // Initial render
 renderItems(items, 'products-container');
+updateCart();
